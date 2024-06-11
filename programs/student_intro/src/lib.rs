@@ -44,7 +44,7 @@ pub struct Introduce<'info> {
         seeds = [name.as_bytes(), initializer.key().as_ref()],
         bump,
         payer = initializer,
-        space = 8 + 32 + 4 + name.len() + 5 + message.len()
+        space = 8 + 32 + 4 + name.len() + 4 + message.len()
     )]
     pub student_intro: Account<'info, StudentAccountState>,
     #[account(mut)]
@@ -62,7 +62,7 @@ pub struct UpdateIntroduce<'info> {
         bump,
         realloc = 8 + 32 + 4 + name.len() + 4 + message.len(),
         realloc::payer = initializer,
-        realloc::zero = true,
+        realloc::zero = false,
     )]
     pub student_intro: Account<'info, StudentAccountState>,
     #[account(mut)]

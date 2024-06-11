@@ -24,7 +24,14 @@ describe("student_intro", () => {
 
   it("Is introduction!", async () => {
     // Add your test here.
-    const tx = await program.methods.introduce(student.name, student.message).rpc();
+    const tx = await program.methods.introduce(student.name, student.message)
+    .accounts({
+      studentIntro: studentPda,
+      initializer: provider.wallet.publicKey,
+      systemProgram: anchor.web3.SystemProgram.programId,
+
+    })
+    .rpc();
     console.log("Your transaction signature", tx);
 
     const account = await program.account.studentAccountState.fetch(studentPda)
